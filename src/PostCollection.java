@@ -16,7 +16,7 @@ public class PostCollection {
     private ArrayList<Post> sortedPostsByLikes;
     private boolean sorted=false;
 
-    private boolean changedSinceSorted;
+
 
     //Getters
     public Post getPost(int inputID){
@@ -49,7 +49,7 @@ public class PostCollection {
     public void addPost(Post inputPost){
         PostMap.put(inputPost.getPostID(),inputPost);
         if (sorted){
-            this.changedSinceSorted=true;
+            this.sorted=false;
         }
     }
     public boolean deletePost(int inputPostID){
