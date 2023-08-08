@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
-import java.util.Comparator;
+import java.time.format.DateTimeFormatter;
+
 
 public class Post {
 
@@ -11,6 +12,8 @@ public class Post {
     private String author;
     private LocalDateTime datePosted;
 
+    //Date Time Formatter for all instances of the class
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public Post(int postID,String content,String author,int likes,int shares,LocalDateTime datePosted) {
         this.postID=postID;
         this.content=content;
@@ -52,6 +55,10 @@ public class Post {
         return String.format("%d | %s | %d",this.getPostID(),this.getContent(),this.getLikes());
     }
 
+    @Override
+    public String toString(){
+        return String.format("%d | %s | %s | %d | %d | %s",this.getPostID(),this.getContent(),this.getAuthor(),this.getLikes(),this.getShares(), this.getDatePosted().format(dateTimeFormat));
+    }
 
 //Setters
     public void setPostID(int inputID){

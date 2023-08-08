@@ -4,9 +4,7 @@ public class Main {
 
         SocialMediaMenu menu = new SocialMediaMenu();
         // Main method to start program
-        menu.generateMenu();
-
-
+        menu.startProgram();
 
     }
 }
