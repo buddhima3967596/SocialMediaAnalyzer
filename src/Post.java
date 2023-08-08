@@ -1,11 +1,24 @@
 import java.time.LocalDateTime;
+import java.util.Comparator;
+
 public class Post {
+
+
     private int postID;
     private int likes;
     private int shares;
     private String content;
     private String author;
     private LocalDateTime datePosted;
+
+    public Post(int postID,String content,String author,int likes,int shares,LocalDateTime datePosted) {
+        this.postID=postID;
+        this.content=content;
+        this.author=author;
+        this.likes=likes;
+        this.shares=shares;
+        this.datePosted=datePosted;
+    }
 
 //    Getters
     public int getPostID(){
@@ -64,4 +77,6 @@ public class Post {
     public void setDatePosted(LocalDateTime inputDate){
         this.datePosted=inputDate;
     }
+
+
 }
