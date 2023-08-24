@@ -60,27 +60,27 @@ public class Post {
     }
 
 //Setters
-    public void setPostID(int inputID){
+    private void setPostID(int inputID){
         this.postID=inputID;
     }
-    public void setLikes(int inputLikes){
+    private void setLikes(int inputLikes){
         this.likes=inputLikes;
     }
 
-    public void setShares(int inputShares){
+    private void setShares(int inputShares){
         this.shares=inputShares;
     }
 
-    public void setContent(String inputContent){
+    private void setContent(String inputContent){
         this.content=inputContent;
     }
 
-    public void setAuthor(String inputAuthor){
+    private void setAuthor(String inputAuthor){
         this.author=inputAuthor;
     }
 
-    //TODO: Complete Date Time Implementation
-    public void setDatePosted(LocalDateTime inputDate){
+
+    private void setDatePosted(LocalDateTime inputDate){
         this.datePosted=inputDate;
     }
 
