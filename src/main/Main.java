@@ -1,3 +1,13 @@
+/*
+ * SocialMediaAnalyzer
+ *
+ * Version V1.00
+ * Author: @buddhima3967596
+ *
+ * 22/08/2023
+ *
+ * Creatives Commons No Rights Reserved
+ */
 import java.io.FileNotFoundException;
 
 public class Main {

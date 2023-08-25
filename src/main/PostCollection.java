@@ -1,3 +1,14 @@
+/*
+ * PostCollection
+ *
+ * Version V1.00
+ * Author: @buddhima3967596
+ *
+ * 22/08/2023
+ *
+ * Creatives Commons No Rights Reserved
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -56,13 +67,11 @@ public class PostCollection {
         }
     }
     public boolean deletePost(int inputPostID){
-        if (PostMap.remove(inputPostID) == null){
-            return false;
-        }
-        return true;
+        return PostMap.remove(inputPostID) != null;
     }
 
     // Sorting Methods
+    // Only called if no pre-existing sorted list exists
     private void intialSortByShares(){
         sortedPostsByShares= new ArrayList<>(PostMap.values());
         Collections.sort(sortedPostsByShares,compareShares.reversed());

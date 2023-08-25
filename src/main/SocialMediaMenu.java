@@ -1,3 +1,14 @@
+/*
+
+ * SocialMediaMenu
+ *
+ * Version V1.00
+ * Author: @buddhima3967596
+ *
+ * 22/08/2023
+ *
+ * Creatives Commons No Rights Reserved
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
@@ -25,7 +36,6 @@ public class SocialMediaMenu {
     public SocialMediaMenu(){
         this.postCollection= new PostCollection();
         this.scanner= new Scanner(System.in);
-        String scannerInput;
     }
 
     static private void printMainMenu(){
@@ -46,6 +56,8 @@ public class SocialMediaMenu {
 
     }
 
+
+    //Loads CSV, skips any rows with errors
     public void loadPostsViaCsv(String filepath) throws FileNotFoundException {
         // Index values for post attributes
        final int POST_ID=0;
@@ -56,7 +68,7 @@ public class SocialMediaMenu {
        final int POST_DATE_TIME=5;
 
         List<List<String>> csvRows = new ArrayList<>();
-            try (Scanner csvScanner = new Scanner(new File(filepath));){
+            try (Scanner csvScanner = new Scanner(new File(filepath))){
                 while (csvScanner.hasNextLine()){
                 csvRows.add(convertRowToList(csvScanner.nextLine()));
             }
@@ -82,7 +94,7 @@ public class SocialMediaMenu {
                     LocalDateTime dateTimeParsed = LocalDateTime.from(timeFormatter.parse(inputDateTime));
                     postCollection.addPost(new Post(inputID,currentRecord.get(POST_CONTENT),currentRecord.get(POST_AUTHOR), inputLikes,inputShares,dateTimeParsed));
                 } catch (Exception e){
-                    System.out.println(e.toString());
+                    System.out.println(e);
                     System.out.printf("\nError in row %d skipping record!",i);
 
             }
@@ -92,6 +104,7 @@ public class SocialMediaMenu {
         System.out.printf("\n%d Posts successfully added to collection",postCollection.getNumberOfPosts());
     }
 
+    //Separates row on comma into List
         private List<String> convertRowToList(String inputRow){
             List<String> commaDelimitedValues = new ArrayList<String>();
                 try(Scanner rowScanner= new Scanner(inputRow)){
@@ -103,6 +116,7 @@ public class SocialMediaMenu {
                 return commaDelimitedValues;
         }
 
+        // Main Menu Method
     public void startProgram(){
 
         //Fields to be filled by user input
@@ -181,7 +195,7 @@ public class SocialMediaMenu {
     }
 
     private void deletePost() {
-        if (postCollection.deletePost(validatePostID()) == false) {
+        if (!postCollection.deletePost(validatePostID())) {
             System.out.println("Sorry the post does not exist in the collection!");
             return;
         }
@@ -218,6 +232,9 @@ public class SocialMediaMenu {
 
     private void getTopPostsViaShares(){
                     int numPosts = validateNumPostsChosen();
+                    if (postCollection.getNumberOfPosts()==0){
+                        System.out.println("Sorry no posts exist in this collection! Returning to main menu");
+                    }
                     if (numPosts > postCollection.getNumberOfPosts()) {
                         System.out.printf("\nOnly %d exist in the collection. Showing all of them.", postCollection.getNumberOfPosts());
                         numPosts = postCollection.getNumberOfPosts();
@@ -232,19 +249,9 @@ public class SocialMediaMenu {
                     System.out.println();
     }
 
-    //
-    private boolean checkDuplicateID(){
-            return false;
-    }
 
-    //Exceptions needed
-    // Empty String
-    // Integer 0/Negative
-    // Can't contain Comma
-    // Duplicate ID
-    // Invalid Date Format
 
-    // Input Validation Methods
+    // Input Validation Methods , ( Exceptions are thrown and handled inside each function , to avoid multiple try catch blocks)
 
     private static String cleanInput(String userInput) throws EmptyUserInputException {
         String userInputCleaned=userInput.strip();
@@ -386,10 +393,10 @@ public class SocialMediaMenu {
             String cleanedInput=cleanInput(scanner.nextLine());
             return LocalDateTime.from(timeFormatter.parse(cleanedInput));
         } catch (EmptyUserInputException e) {
-            System.out.print("Input can't be empty!, Please try again");
+            System.out.println("Input can't be empty!, Please try again");
             return validateDate();
         } catch (DateTimeParseException | IllegalArgumentException e) {
-            System.out.print("Invalid Date Format!, Please try again");
+            System.out.println("Invalid Date Format!, Please try again");
             return validateDate();
         }
     }
