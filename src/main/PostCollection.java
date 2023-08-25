@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class PostCollection {
     // final access modifier so only one hashmap can be initialized.
@@ -46,7 +49,7 @@ public class PostCollection {
     }
 
     // Main Methods
-    public void addPost(Post inputPost){
+    public void addPost(Post inputPost) {
         PostMap.put(inputPost.getPostID(),inputPost);
         if (sorted){
             this.sorted=false;

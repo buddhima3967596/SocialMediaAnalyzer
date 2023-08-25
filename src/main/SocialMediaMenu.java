@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class SocialMediaMenu {
 
 
     //Final keyword to ensure each field can only be initialized once
-    private final PostCollection postCollection;
+    protected final PostCollection postCollection;
     private final Scanner scanner;
 
     private final DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm");
@@ -48,12 +48,12 @@ public class SocialMediaMenu {
 
     public void loadPostsViaCsv(String filepath) throws FileNotFoundException {
         // Index values for post attributes
-        int POST_ID=0;
-        int POST_CONTENT=1;
-        int POST_AUTHOR=2;
-        int POST_LIKES=3;
-        int POST_SHARES=4;
-        int POST_DATE_TIME=5;
+       final int POST_ID=0;
+       final int POST_CONTENT=1;
+       final int POST_AUTHOR=2;
+       final int POST_LIKES=3;
+       final int POST_SHARES=4;
+       final int POST_DATE_TIME=5;
 
         List<List<String>> csvRows = new ArrayList<>();
             try (Scanner csvScanner = new Scanner(new File(filepath));){
@@ -74,6 +74,10 @@ public class SocialMediaMenu {
                         inputDateTime="0".concat(inputDateTime);
                     }
 
+                    if (postCollection.getPost(inputID)!=null) {
+                        System.out.printf("\nDuplicate Post ID in row %d skipping record!",i);
+                        continue;
+                    }
 
                     LocalDateTime dateTimeParsed = LocalDateTime.from(timeFormatter.parse(inputDateTime));
                     postCollection.addPost(new Post(inputID,currentRecord.get(POST_CONTENT),currentRecord.get(POST_AUTHOR), inputLikes,inputShares,dateTimeParsed));
@@ -84,7 +88,7 @@ public class SocialMediaMenu {
             }
 
         }
-        System.out.printf("%d Rows read from CSV",csvRows.size()-1);
+        System.out.printf("\n%d Rows read from CSV",csvRows.size()-1);
         System.out.printf("\n%d Posts successfully added to collection",postCollection.getNumberOfPosts());
     }
 
