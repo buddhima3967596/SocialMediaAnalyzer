@@ -4,6 +4,8 @@ public class EmptyUserInputException extends Exception{
         super(errorMessage,origin);
     }
 
+
+
     public EmptyUserInputException(String errorMessage){
         super(errorMessage);
     }
